@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CitasMedicas.Pages.SolicitarCita"
+             Title="Solicitar cita">
+    <VerticalStackLayout VerticalOptions="Center">
+        <Entry x:Name="nombre"
+                   Placeholder="Nombre" />
+
+        <Entry x:Name="apellidos"
+                   Placeholder="Apellidos" />
+
+        <Entry x:Name="numPaciente"
+                   Placeholder="Número de paciente"
+                   Keyboard="Numeric" />
+        <Picker
+            x:Name="cursoPicker" Title="Preferencia Turno">
+
+            <Picker.Items>
+            <x:String>Mañana</x:String>
+            <x:String>Tarde</x:String>
+            </Picker.Items>
+        </Picker>
+        
+        
+        <HorizontalStackLayout>
+
+            <CheckBox
+            x:Name="condicionesCheckBox"></CheckBox>
+     
+              <Label Text= "Acepto guardar mis datos" />
+      
+            </HorizontalStackLayout>
+
+        <Button Text="Solicitar cita" Clicked="OnSolicitarCitaClicked" />
+
+    </VerticalStackLayout>
+</ContentPage>
