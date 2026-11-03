@@ -14,7 +14,7 @@
                    Placeholder="Número de paciente"
                    Keyboard="Numeric" />
         <Picker
-            x:Name="cursoPicker" Title="Preferencia Turno">
+            x:Name="cursoPicker" Title="Preferencia de Turno">
 
             <Picker.Items>
             <x:String>Mañana</x:String>
@@ -28,11 +28,20 @@
             <CheckBox
             x:Name="condicionesCheckBox"></CheckBox>
      
-              <Label Text= "Acepto guardar mis datos" />
+              <Label Text= "Recuerda mis datos" />
       
             </HorizontalStackLayout>
 
         <Button Text="Solicitar cita" Clicked="OnSolicitarCitaClicked" />
 
     </VerticalStackLayout>
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </ContentPage>
