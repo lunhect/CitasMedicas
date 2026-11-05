@@ -3,45 +3,65 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CitasMedicas.Pages.SolicitarCita"
              Title="Solicitar cita">
-    <VerticalStackLayout VerticalOptions="Center">
-        <Entry x:Name="nombre"
-                   Placeholder="Nombre" />
 
-        <Entry x:Name="apellidos"
-                   Placeholder="Apellidos" />
+    <!-- Fila 0: formulario | Fila 1 (*): lista | Fila 2: botón -->
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
 
-        <Entry x:Name="numPaciente"
+        <VerticalStackLayout Grid.Row="0">
+
+            <Entry x:Name="nombre" Placeholder="Nombre" />
+
+            <Entry x:Name="apellidos" Placeholder="Apellidos" />
+
+            <Entry x:Name="numPaciente"
                    Placeholder="Número de paciente"
                    Keyboard="Numeric" />
-        <Picker
-            x:Name="cursoPicker" Title="Preferencia de Turno">
 
-            <Picker.Items>
-            <x:String>Mañana</x:String>
-            <x:String>Tarde</x:String>
-            </Picker.Items>
-        </Picker>
-        
-        
-        <HorizontalStackLayout>
+            <Picker x:Name="cursoPicker" Title="Preferencia de turno">
+                <Picker.Items>
+                    <x:String>Mañana</x:String>
+                    <x:String>Tarde</x:String>
+                </Picker.Items>
+            </Picker>
 
-            <CheckBox
-            x:Name="condicionesCheckBox"></CheckBox>
-     
-              <Label Text= "Recuerda mis datos" />
-      
+            <HorizontalStackLayout>
+                <CheckBox x:Name="condicionesCheckBox" />
+                <Label Text="Recuerda mis datos" VerticalOptions="Center" />
             </HorizontalStackLayout>
 
-        <Button Text="Solicitar cita" Clicked="OnSolicitarCitaClicked" />
+            <Label Text="Selecciona una especialidad" FontAttributes="Bold"
+                   Margin="0,15,0,5" />
 
-    </VerticalStackLayout>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        </VerticalStackLayout>
+
+        <!-- CollectionView -->
+        <CollectionView Grid.Row="1" x:Name="ListaEspecialidades" SelectionMode="Single">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10" Padding="5">
+
+                        <Image Grid.Column="0" Source="{Binding Imagen}"
+                               WidthRequest="50" HeightRequest="50" />
+
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="{Binding Nombre}" FontAttributes="Bold" />
+                            <Label Text="{Binding Doctor}" TextColor="Gray" FontSize="12" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                            <Label Text="{Binding DiasEspera}" FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                            <Label Text="días espera" FontSize="10"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2" Text="Solicitar cita" Clicked="OnSolicitarCitaClicked" />
+
+    </Grid>
 </ContentPage>

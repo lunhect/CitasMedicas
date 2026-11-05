@@ -1,4 +1,6 @@
-using CitasMedicas.Models;
+using System.Text.Json;
+using CitasMedicas.Model;
+
 
 namespace CitasMedicas.Pages;
 
@@ -7,6 +9,8 @@ public partial class SolicitarCita : ContentPage
 	public SolicitarCita()
 	{
 		InitializeComponent();
+
+        ListaEspecialidades.ItemsSource = CargarEspecialidades();
 
 		nombre.Text = Preferences.Get("nombre", string.Empty);
         apellidos.Text = Preferences.Get("apellidos", string.Empty);
@@ -19,6 +23,35 @@ public partial class SolicitarCita : ContentPage
 
     private async void OnSolicitarCitaClicked(object sender, EventArgs e)
     {
+        
+        if (string.IsNullOrWhiteSpace(nombre.Text) || string.IsNullOrWhiteSpace(apellidos.Text) || string.IsNullOrWhiteSpace(numPaciente.Text))
+        {
+            await DisplayAlertAsync("Faltan datos", "Introduce nombre, apellidos y número de paciente.", "OK");
+            return;
+
+
+        }
+
+        if (cursoPicker.SelectedItem == null)
+        {
+            await DisplayAlertAsync("Faltan datos", "Selecciona una preferencia de turno.", "OK");
+            return;
+        }
+
+
+
+        if (ListaEspecialidades.SelectedItem == null) 
+        {  
+            await DisplayAlertAsync("Faltan datos", "Selecciona una especialidad.", "OK"); 
+             return; 
+        
+        }
+
+
+
+
+
+
         if (this.condicionesCheckBox.IsChecked)
         {
 
@@ -34,8 +67,56 @@ public partial class SolicitarCita : ContentPage
             Preferences.Remove("numPaciente");
             Preferences.Remove("condicionesCheckBox");
         }
-    
-        
+
+
+
+
+
+        var elegida = (Especialidad)ListaEspecialidades.SelectedItem;
+
+        var cita = new Cita
+        {
+
+            Nombre = nombre.Text.Trim(),
+            Apellidos = apellidos.Text.Trim(),
+            NumPaciente = numPaciente.Text.Trim(),
+            Turno = (string)cursoPicker.SelectedItem,
+            Especialidad = elegida.Nombre,
+            Doctor = elegida.Doctor,
+            DiasEspera = elegida.DiasEspera,
+            FechaSolicitud = DateTime.Now
+
+
+
+        };
+
+        string rutaCitas = Path.Combine(FileSystem.AppDataDirectory, "citas.json");
+
+        List<Cita> citas = new List<Cita>();
+
+
+        if (File.Exists(rutaCitas))
+        {
+
+
+            string json = File.ReadAllText(rutaCitas);
+            citas = JsonSerializer.Deserialize<List<Cita>>(json)
+                ?? new List<Cita>();
+
+
+        }
+
+        citas.Add(cita);
+
+        string texto = JsonSerializer.Serialize(citas);
+        File.WriteAllText(rutaCitas, texto);
+
+        await DisplayAlertAsync("Cita solicitada",
+    $"{cita.Nombre} {cita.Apellidos}, a la mayor brevedad le informaremos de su cita en {cita.Especialidad}. Puede consultar sus citas desde la sección Consulta de citas.",
+    "OK");
+
+
+
     }
 
     private List<Especialidad> CargarEspecialidades()

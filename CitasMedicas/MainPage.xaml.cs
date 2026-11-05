@@ -2,16 +2,19 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void VerCitasClicked(object sender, EventArgs e)
+        private async void SolicitarCitaClicked(object sender, EventArgs e)
         {
+            await Navigation.PushAsync(new Pages.SolicitarCita());
+        }
 
+        private async void VerCitasClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Pages.ConsultaCitasPage());
         }
     }
 }
