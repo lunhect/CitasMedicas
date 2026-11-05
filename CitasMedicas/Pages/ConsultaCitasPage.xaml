@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CitasMedicas.Pages.ConsultaCitasPage"
+             Title="Consulta de citas">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Label Text="Mis citas solicitadas" FontAttributes="Bold" />
+
+        <CollectionView x:Name="ListaCitas">
+
+            <CollectionView.EmptyView>
+                <Label Text="Todavía no has solicitado ninguna cita." />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10" Margin="0,5" StrokeShape="RoundRectangle 8">
+                        <Grid ColumnDefinitions="*,Auto">
+
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding Especialidad}" FontAttributes="Bold" />
+                                <Label Text="{Binding Doctor}" TextColor="Gray" FontSize="12" />
+                                <Label Text="{Binding FechaSolicitud, StringFormat='Solicitada el {0:dd/MM/yyyy HH:mm}'}"
+                                       FontSize="12" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding DiasEspera}" FontAttributes="Bold"
+                                       HorizontalOptions="Center" />
+                                <Label Text="días espera" FontSize="10"
+                                       HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

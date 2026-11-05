@@ -3,18 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CitasMedicas.MainPage"
              Title="Citas">
-    <VerticalStackLayout VerticalOptions="Center" >
 
-        <Label Text="Citas medicas"
+    <VerticalStackLayout VerticalOptions="Center" Padding="30" Spacing="15">
+
+        <Label Text="Citas médicas"
                FontSize="28"
                HorizontalOptions="Center" />
 
-        <Label Text="Solicitar cita"
-                />
+        <Button Text="Solicitar cita" Clicked="SolicitarCitaClicked" />
 
-        <Button Text="Consultar citas"
-              Clicked="VerCitasClicked" />
-    
+        <Button Text="Consulta de citas" Clicked="VerCitasClicked" />
+
     </VerticalStackLayout>
 </ContentPage>
-        
